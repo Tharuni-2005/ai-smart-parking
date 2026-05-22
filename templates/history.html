@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Booking History</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial;
+
+            background: #020617;
+
+            color: white;
+
+            padding: 30px;
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #00f5ff;
+
+            margin-bottom: 40px;
+
+            text-shadow: 0 0 20px #00f5ff;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            background: #111827;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+        }
+
+        th {
+
+            background: #00f5ff;
+
+            color: black;
+
+            padding: 15px;
+
+            font-size: 18px;
+
+        }
+
+        td {
+
+            padding: 15px;
+
+            text-align: center;
+
+            border-bottom: 1px solid #334155;
+
+        }
+
+        tr:hover {
+
+            background: #1e293b;
+
+        }
+
+        .amount {
+
+            color: #39ff14;
+
+            font-weight: bold;
+
+        }
+
+        .available {
+
+            color: #39ff14;
+
+            font-weight: bold;
+
+        }
+
+        .occupied {
+
+            color: #ff3131;
+
+            font-weight: bold;
+
+        }
+
+        .btn {
+
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding: 12px 20px;
+
+            background: #00f5ff;
+
+            color: black;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Parking Booking History 🚗</h1>
+
+    <table>
+
+        <tr>
+
+            <th>User</th>
+
+            <th>Vehicle</th>
+
+            <th>Slot</th>
+
+            <th>Entry Time</th>
+
+            <th>Exit Time</th>
+
+            <th>Amount</th>
+
+            <th>Status</th>
+
+        </tr>
+
+        {% for booking in bookings %}
+
+        <tr>
+
+            <td>
+                {{ booking.user_name }}
+            </td>
+
+            <td>
+                {{ booking.vehicle_number }}
+            </td>
+
+            <td>
+                {{ booking.slot.slot_name }}
+            </td>
+
+            <td>
+                {{ booking.booking_time }}
+            </td>
+
+            <td>
+
+                {% if booking.exit_time %}
+
+                    {{ booking.exit_time }}
+
+                {% else %}
+
+                    Still Parked
+
+                {% endif %}
+
+            </td>
+
+            <td class="amount">
+
+                ₹{{ booking.total_amount }}
+
+            </td>
+
+            <td>
+
+                {% if booking.exit_time %}
+
+                    <span class="available">
+
+                        Completed
+
+                    </span>
+
+                {% else %}
+
+                    <span class="occupied">
+
+                        Active
+
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <center>
+
+        <a href="/"
+           class="btn">
+
+            Back To Home
+
+        </a>
+
+    </center>
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Bookings</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#020617;
+            color:white;
+            text-align:center;
+        }
+
+        h1{
+            margin-top:40px;
+            color:#faff00;
+        }
+
+        .booking-box{
+
+            width:500px;
+
+            margin:auto;
+            margin-top:30px;
+
+            background:#111827;
+
+            padding:30px;
+
+            border-radius:20px;
+
+            box-shadow:
+            0 0 20px #00f5ff;
+        }
+
+        p{
+            margin-top:15px;
+            font-size:18px;
+        }
+
+        input{
+
+            width:90%;
+
+            padding:12px;
+
+            margin-top:20px;
+
+            border:none;
+
+            border-radius:10px;
+
+            outline:none;
+
+            font-size:16px;
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            margin-top:20px;
+
+            padding:12px 20px;
+
+            background:#ff3131;
+
+            color:white;
+
+            border:none;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            font-size:16px;
+        }
+
+        .btn:hover{
+
+            box-shadow:
+            0 0 15px #ff3131;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>My Bookings 🚗</h1>
+
+    {% if bookings %}
+
+        {% for booking in bookings %}
+
+        <div class="booking-box">
+
+            <p>
+                <b>User Name:</b>
+                {{ booking.user_name }}
+            </p>
+
+            <p>
+                <b>Slot:</b>
+                {{ booking.slot.slot_name }}
+            </p>
+
+            <p>
+                <b>Vehicle Number:</b>
+                {{ booking.vehicle_number }}
+            </p>
+
+            <p>
+                <b>Vehicle Type:</b>
+                {{ booking.vehicle_type }}
+            </p>
+
+            <p>
+                <b>Booking Time:</b>
+                {{ booking.booking_time }}
+            </p>
+
+            <form action="{% url 'cancel_booking' booking.id %}"
+                  method="POST">
+
+                {% csrf_token %}
+
+
+                <button type="submit"
+                        class="btn">
+
+                    Cancel Booking
+
+                </button>
+
+            </form>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h2>
+            No bookings found ❌
+        </h2>
+
+    {% endif %}
+
+</body>
+
+</html>

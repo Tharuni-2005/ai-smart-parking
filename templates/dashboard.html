@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>User Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: Arial;
+            background:#020617;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .dashboard{
+
+            width:450px;
+            padding:40px;
+            border-radius:20px;
+
+            background:rgba(17,24,39,0.9);
+
+            box-shadow:
+            0 0 20px #ff00ff;
+
+            animation:fadeIn 0.6s ease;
+        }
+
+        h2{
+            text-align:center;
+            color:#ff00ff;
+            margin-bottom:15px;
+
+            text-shadow:0 0 20px #ff00ff;
+        }
+
+        h3{
+            text-align:center;
+            margin-bottom:25px;
+            color:#39ff14;
+        }
+
+        input, select{
+
+            width:100%;
+            padding:14px;
+            margin-top:18px;
+
+            border:none;
+            outline:none;
+
+            border-radius:10px;
+
+            background:#111827;
+            color:white;
+
+            font-size:16px;
+        }
+
+        button{
+
+            width:100%;
+            padding:15px;
+
+            margin-top:25px;
+
+            border:none;
+            border-radius:10px;
+
+            background:#ff00ff;
+            color:black;
+
+            font-size:18px;
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.3s ease;
+        }
+
+        button:hover{
+
+            transform:scale(1.03);
+
+            box-shadow:
+            0 0 20px #ff00ff;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <h2>User Registration ⚡</h2>
+
+        <h3>
+            Selected Slot:
+            {{ slot.slot_name }}
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input type="text"
+                   name="user_name"
+                   placeholder="Enter Your Name"
+                   required>
+
+            <input type="text"
+                   name="phone_number"
+                   placeholder="Phone Number"
+                   required>
+
+            <input type="text"
+                   name="vehicle_number"
+                   placeholder="Vehicle Number"
+                   required>
+
+            <select name="vehicle_type" required>
+
+                <option value="">
+                    Select Vehicle Type
+                </option>
+
+                <option value="Car">
+                    Car
+                </option>
+
+                <option value="Bike">
+                    Bike
+                </option>
+
+                <option value="EV">
+                    EV
+                </option>
+
+            </select>
+
+            <button type="submit">
+
+                Confirm Booking
+
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

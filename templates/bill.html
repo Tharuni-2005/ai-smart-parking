@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Parking Bill</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#020617;
+            color:white;
+            text-align:center;
+        }
+
+        .box{
+
+            width:500px;
+
+            margin:auto;
+
+            margin-top:80px;
+
+            padding:40px;
+
+            background:#111827;
+
+            border-radius:20px;
+
+            box-shadow:0 0 25px #00f5ff;
+
+        }
+
+        h1{
+
+            color:#00f5ff;
+
+            margin-bottom:30px;
+
+        }
+
+        p{
+
+            font-size:20px;
+
+            margin:15px 0;
+
+        }
+
+        .amount{
+
+            color:#39ff14;
+
+            font-size:35px;
+
+            font-weight:bold;
+
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            margin-top:25px;
+
+            padding:12px 20px;
+
+            background:#00f5ff;
+
+            color:black;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Parking Bill 🚗</h1>
+
+        <p>
+            User :
+            {{ booking.user_name }}
+        </p>
+
+        <p>
+            Vehicle :
+            {{ booking.vehicle_number }}
+        </p>
+
+        <p>
+            Entry Time :
+            {{ booking.booking_time }}
+        </p>
+
+        <p>
+            Exit Time :
+            {{ booking.exit_time }}
+        </p>
+
+        <p>
+            Parking Duration :
+            {{ duration }}
+        </p>
+
+        <p class="amount">
+            Total Amount : ₹{{ amount }}
+        </p>
+
+        <a href="/"
+           class="btn">
+
+           Back To Home
+
+        </a>
+
+    </div>
+
+</body>
+
+</html>

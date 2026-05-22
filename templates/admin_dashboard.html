@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#020617;
+            color:white;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+            color:#00f5ff;
+            margin-bottom:40px;
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background:#111827;
+
+        }
+
+        th{
+
+            background:#00f5ff;
+
+            color:black;
+
+            padding:15px;
+
+        }
+
+        td{
+
+            padding:15px;
+
+            text-align:center;
+
+            border-bottom:1px solid #334155;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Admin Dashboard 🚗</h1>
+
+    <table>
+
+        <tr>
+
+            <th>Slot</th>
+
+            <th>User</th>
+
+            <th>Vehicle</th>
+
+            <th>Status</th>
+
+        </tr>
+
+        {% for slot in slots %}
+
+        <tr>
+
+            <td>
+                {{ slot.slot_name }}
+            </td>
+
+            <td>
+
+                {% for booking in bookings %}
+
+                    {% if booking.slot.id == slot.id %}
+
+                        {{ booking.user_name }}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </td>
+
+            <td>
+
+                {% for booking in bookings %}
+
+                    {% if booking.slot.id == slot.id %}
+
+                        {{ booking.vehicle_number }}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </td>
+
+            <td>
+
+                {% if slot.is_available %}
+
+                    Available
+
+                {% else %}
+
+                    Occupied
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

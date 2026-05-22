@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Smart Parking Finder 🚗</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            font-family: Arial;
+            background: #020617;
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+        }
+
+        h1 {
+
+            margin-top: 40px;
+            font-size: 45px;
+            color: #00f5ff;
+            text-shadow: 0 0 20px #00f5ff;
+
+        }
+
+        p {
+
+            margin-top: 10px;
+            color: #cbd5e1;
+            font-size: 18px;
+
+        }
+
+        /* AI Recommendation Box */
+
+        .ai-box {
+
+            width: 420px;
+            margin: auto;
+            margin-top: 30px;
+            padding: 20px;
+            background: #111827;
+            border-radius: 20px;
+            border: 2px solid #00f5ff;
+            box-shadow: 0 0 20px #00f5ff;
+            font-size: 22px;
+            font-weight: bold;
+            animation: glow 2s infinite alternate;
+
+        }
+
+        .ai-box span {
+
+            color: #39ff14;
+            font-size: 28px;
+
+        }
+
+        @keyframes glow {
+
+            from {
+
+                box-shadow: 0 0 15px #00f5ff;
+
+            }
+
+            to {
+
+                box-shadow:
+                    0 0 25px #00f5ff,
+                    0 0 40px #00f5ff;
+
+            }
+
+        }
+
+        .stats-container {
+
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+
+        }
+
+        .card {
+
+            width: 240px;
+            padding: 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.4s ease;
+            background: #111827;
+            border: 2px solid transparent;
+
+        }
+
+        .card:hover {
+
+            transform: translateY(-12px) scale(1.05);
+
+        }
+
+        .total {
+
+            border-color: #00f5ff;
+            box-shadow: 0 0 20px #00f5ff;
+
+        }
+
+        .available {
+
+            border-color: #39ff14;
+            box-shadow: 0 0 20px #39ff14;
+
+        }
+
+        .occupied {
+
+            border-color: #ff3131;
+            box-shadow: 0 0 20px #ff3131;
+
+        }
+
+        .card h2 {
+
+            font-size: 42px;
+
+        }
+
+        .card p {
+
+            margin-top: 15px;
+            color: white;
+            font-size: 20px;
+
+        }
+
+        .slots-container {
+
+            display: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 60px;
+            animation: fadeIn 0.6s ease;
+
+        }
+
+        .slot-card {
+
+            margin: 15px;
+            text-align: center;
+
+        }
+
+        .slot {
+
+            width: 130px;
+            height: 130px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            transition: 0.4s ease;
+            background: #111827;
+
+        }
+
+        .slot:hover {
+
+            transform: scale(1.08);
+
+        }
+
+        .slot-available {
+
+            border: 2px solid #39ff14;
+            box-shadow: 0 0 20px #39ff14;
+
+        }
+
+        .slot-occupied {
+
+            border: 2px solid #ff3131;
+            box-shadow: 0 0 20px #ff3131;
+
+        }
+
+        .slot a {
+
+            color: white;
+            text-decoration: none;
+
+        }
+
+        .btn {
+
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #00f5ff;
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            border: none;
+            cursor: pointer;
+
+        }
+
+        .btn:hover {
+
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00f5ff;
+
+        }
+
+        .cancel-btn {
+
+            background: #ff3131;
+            color: white;
+
+        }
+
+        input[type="text"] {
+
+            margin-top: 15px;
+            padding: 10px;
+            width: 180px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+
+        }
+
+        .particles span {
+
+            position: absolute;
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: animate 15s linear infinite;
+            bottom: -150px;
+
+            box-shadow:
+                0 0 20px #00f5ff,
+                0 0 40px #00f5ff,
+                0 0 60px #00f5ff;
+
+        }
+
+        .particles span:nth-child(1) {
+
+            left: 10%;
+            animation-duration: 12s;
+
+        }
+
+        .particles span:nth-child(2) {
+
+            left: 20%;
+            animation-duration: 18s;
+
+        }
+
+        .particles span:nth-child(3) {
+
+            left: 35%;
+            animation-duration: 10s;
+
+        }
+
+        .particles span:nth-child(4) {
+
+            left: 50%;
+            animation-duration: 15s;
+
+        }
+
+        .particles span:nth-child(5) {
+
+            left: 65%;
+            animation-duration: 20s;
+
+        }
+
+        .particles span:nth-child(6) {
+
+            left: 75%;
+            animation-duration: 11s;
+
+        }
+
+        .particles span:nth-child(7) {
+
+            left: 85%;
+            animation-duration: 17s;
+
+        }
+
+        .particles span:nth-child(8) {
+
+            left: 95%;
+            animation-duration: 13s;
+
+        }
+
+        @keyframes animate {
+
+            0% {
+
+                transform: translateY(0) scale(0);
+                opacity: 0;
+
+            }
+
+            10% {
+
+                opacity: 1;
+
+            }
+
+            90% {
+
+                opacity: 1;
+
+            }
+
+            100% {
+
+                transform: translateY(-1000px) scale(1);
+                opacity: 0;
+
+            }
+
+        }
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+                transform: translateY(20px);
+
+            }
+
+            to {
+
+                opacity: 1;
+                transform: translateY(0);
+
+            }
+
+        }
+
+        /* =========================
+           Mobile Responsive Design
+        ========================= */
+
+        @media screen and (max-width: 768px) {
+
+            h1 {
+
+                font-size: 32px;
+                margin-top: 25px;
+
+            }
+
+            p {
+
+                font-size: 16px;
+                padding: 0 10px;
+
+            }
+
+            .ai-box {
+
+                width: 90%;
+                font-size: 18px;
+                padding: 15px;
+
+            }
+
+            .ai-box span {
+
+                font-size: 24px;
+
+            }
+
+            .stats-container {
+
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+
+            }
+
+            .card {
+
+                width: 90%;
+
+            }
+
+            .slots-container {
+
+                margin-top: 40px;
+
+            }
+
+            .slot {
+
+                width: 110px;
+                height: 110px;
+                font-size: 20px;
+
+            }
+
+            .btn {
+
+                width: 90%;
+                font-size: 16px;
+
+            }
+
+            input[type="text"] {
+
+                width: 90%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>AI Smart Parking Finder ⚡</h1>
+
+    <p>
+        Futuristic AI Parking Management System
+    </p>
+
+    <a href="/history/"
+       class="btn">
+
+       View Booking History
+
+    </a>
+
+    <!-- AI Recommendation -->
+
+    {% if recommended_slot %}
+
+        <div class="ai-box">
+
+            🤖 AI Recommended Slot :
+
+            <span>
+
+                {{ recommended_slot.slot_name }}
+
+            </span>
+
+        </div>
+
+    {% endif %}
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <div class="stats-container">
+
+        <div class="card total"
+             onclick="showSlots('all')">
+
+            <h2>{{ total_slots }}</h2>
+
+            <p>Total Slots</p>
+
+        </div>
+
+        <div class="card available"
+             onclick="showSlots('available')">
+
+            <h2>{{ available_slots }}</h2>
+
+            <p>Available Slots</p>
+
+        </div>
+
+        <div class="card occupied"
+             onclick="showSlots('occupied')">
+
+            <h2>{{ occupied_slots }}</h2>
+
+            <p>Occupied Slots</p>
+
+        </div>
+
+    </div>
+
+    <div class="slots-container"
+         id="slotsContainer">
+
+        {% for slot in slots %}
+
+            <div class="slot-card"
+                 data-status="{% if slot.is_available %}available{% else %}occupied{% endif %}">
+
+                {% if slot.is_available %}
+
+                    <div class="slot slot-available">
+
+                        {{ slot.slot_name }}
+
+                    </div>
+
+                    <a href="/dashboard/{{ slot.id }}/"
+                       class="btn">
+
+                        Book Now
+
+                    </a>
+
+                {% else %}
+
+                    <div class="slot slot-occupied">
+
+                        {{ slot.slot_name }}
+
+                    </div>
+
+                    {% for booking in bookings %}
+
+                        {% if booking.slot.id == slot.id %}
+
+                            {% if not booking.exit_time %}
+
+                                <form
+                                    action="{% url 'cancel_booking' booking.id %}"
+                                    method="POST">
+
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="text"
+                                        name="user_name"
+                                        placeholder="Enter Username"
+                                        required>
+
+                                    <br>
+
+                                    <button
+                                        type="submit"
+                                        class="btn cancel-btn">
+
+                                        Cancel Slot
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <script>
+
+        function showSlots(type) {
+
+            let container =
+                document.getElementById("slotsContainer");
+
+            container.style.display = "flex";
+
+            let slots =
+                document.querySelectorAll(".slot-card");
+
+            slots.forEach(slot => {
+
+                let status =
+                    slot.getAttribute("data-status");
+
+                if (type === "all") {
+
+                    slot.style.display = "block";
+
+                }
+
+                else if (type === status) {
+
+                    slot.style.display = "block";
+
+                }
+
+                else {
+
+                    slot.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

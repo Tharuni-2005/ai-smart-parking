@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Booking Successful</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#020617;
+            color:white;
+            text-align:center;
+        }
+
+        .box{
+
+            width:500px;
+
+            margin:auto;
+            margin-top:60px;
+
+            background:#111827;
+
+            padding:40px;
+
+            border-radius:20px;
+
+            box-shadow:
+            0 0 25px #faff00;
+        }
+
+        h1{
+            color:#faff00;
+
+            text-shadow:
+            0 0 20px #faff00;
+        }
+
+        p{
+            margin-top:18px;
+            font-size:18px;
+        }
+
+        .buttons{
+            margin-top:35px;
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            padding:14px 22px;
+
+            margin:10px;
+
+            background:#00f5ff;
+
+            color:black;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            transition:0.3s ease;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+
+            box-shadow:
+            0 0 20px #00f5ff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>
+            Booking Successful ✅
+        </h1>
+
+        <h2>Your Parking QR Code</h2>
+
+          <img src="{{ booking.qr_code.url }}"
+            width="250">
+
+        <p>
+            <b>User Name:</b>
+            {{ booking.user_name }}
+        </p>
+
+        <p>
+            <b>Slot Number:</b>
+            {{ slot.slot_name }}
+        </p>
+
+        <p>
+            <b>Vehicle Number:</b>
+            {{ booking.vehicle_number }}
+        </p>
+
+        <p>
+            <b>Vehicle Type:</b>
+            {{ booking.vehicle_type }}
+        </p>
+
+        <p>
+            <b>Booking Time:</b>
+            {{ booking.booking_time }}
+        </p>
+
+        <div class="buttons">
+
+            <a href="/"
+               class="btn">
+
+                Back to Home
+
+            </a>
+
+            <a href="/my-bookings/"
+               class="btn">
+
+                My Bookings
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
