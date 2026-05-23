@@ -346,14 +346,30 @@ def cancel_booking(request, booking_id):
 
 def my_bookings(request):
 
+    user_name = request.session.get(
+        'user_name'
+    )
+
     bookings = Booking.objects.filter(
-    exit_time__isnull=True
+
+        user_name=user_name,
+
+        exit_time__isnull=True
+
     )
 
     return render(
+
         request,
+
         'my_bookings.html',
-        {'bookings': bookings}
+
+        {
+
+            'bookings': bookings
+
+        }
+
     )
 
 
