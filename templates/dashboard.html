@@ -137,13 +137,18 @@
 
             <input type="text"
                    name="phone_number"
-                   placeholder="Phone Number"
+                   placeholder="Enter 10 Digit Phone Number"
+                   pattern="[0-9]{10}"
+                   maxlength="10"
                    autocomplete="off"
                    required>
 
             <input type="text"
                    name="vehicle_number"
-                   placeholder="Vehicle Number"
+                   placeholder="Example: AP00XX1234"
+                   pattern="[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}"
+                   title="Enter valid vehicle number"
+                   style="text-transform:uppercase;"
                    autocomplete="off"
                    required>
 
